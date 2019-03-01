@@ -12,7 +12,7 @@
 
 ### 常见问题(接入时无需执行这里,脚本出问题时可参考这里)
 
-#### [点我看更新日志](https://github.com/spWang/gitHooks/blob/master/changelog.md)
+#### [点我看更新日志]()
 
 ####备忘
 python setup.py sdist bdist_wheel
