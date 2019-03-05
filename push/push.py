@@ -594,7 +594,7 @@ def pull_target_branch():
 		
 def give_up_rebase():
 	print("放弃变基:"+CAMMAND_GIT_REBASE_ABORT)
-	cammand_out_put(CAMMAND_GIT_REBASE_ABORT, True, None)
+	cammand_out_put(CAMMAND_GIT_REBASE_ABORT, False, None)
 
 def create_branch_source():
 	cammand = CAMMAND_CHECKOUT_BRANCH+" "+source_branch()
