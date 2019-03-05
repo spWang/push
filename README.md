@@ -15,7 +15,7 @@ https://github.com/spWang/push
 ### 配置方法
 1.拉取master分支代码,在~/.bash_profile文件里增加如下配置:<br>
 ```objc
-alias push="python '这里换成脚本的全路径/push.py'"<br>
+alias push="python '这里换成脚本的全路径/push.py'"
 ```
 2.刷新窗口:source ~/.bash_profile<br>
 3.cd到需要提交的仓库下面,执行push根据提示继续操作即可完成push代码<br>
