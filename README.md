@@ -25,7 +25,8 @@ alias push="python '这里换成脚本的全路径/push.py'"
 ### 常见问题
 1.默认设定的push分支是dev,可以试用push -h命令按提示自助修改
 
-####备忘
+
+#### 备忘
 1.python setup.py sdist bdist_wheel<br>
 2.twine upload dist/*<br>
 3.https://blog.csdn.net/qq_38486203/article/details/83659287
