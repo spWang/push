@@ -27,7 +27,7 @@ VERSION = " 1.0.0"
 #全局变量
 gl = None
 project = None
-GLOBAL_BEFORE_PULL_FILE_COUNT = 0
+GLOBAL_BEFORE_PULL_FILE_LIST = []
 GLOBAL_BRANCH_SOURCE = None
 
 DEFAULT_BRANCH_TARGET = "dev" #默认的目标分支
@@ -284,9 +284,9 @@ def check_origin_target_exist():
 		return False
 
 def mark_count_of_files():
-	global GLOBAL_BEFORE_PULL_FILE_COUNT
-	GLOBAL_BEFORE_PULL_FILE_COUNT = module_files_count()
-	print("被统计目录文件总数是:"+str(GLOBAL_BEFORE_PULL_FILE_COUNT))
+	global GLOBAL_BEFORE_PULL_FILE_LIST
+	GLOBAL_BEFORE_PULL_FILE_LIST = module_files_list()
+	print "记录下被统计目录文件列表"
 def check_git_status(status):
 	needPull = MSG_PULL in status
 	noChange = MSG_NOCHANGE in status
@@ -748,16 +748,15 @@ def open_web_merge_request(mr):
 	print("打开浏览器:"+mr.web_url)
 	webbrowser.open(mr.web_url)
 
-def module_files_count():	
-	return files_count_with_path(current_path())
+def module_files_list():	
+	return files_list_with_path(current_path())
 def pod_install_if_need():
-	if GLOBAL_BEFORE_PULL_FILE_COUNT ==0:
-		print("不需要执行pod install")
+	if len(GLOBAL_BEFORE_PULL_FILE_LIST)==0:
+		print("被标记的文件列表没有数据,不执行pod install")
 		return
 	
-	afterPullFliesCount = module_files_count()
-	print("拉取代码前后被统计文件分别是:"+str(GLOBAL_BEFORE_PULL_FILE_COUNT)+"/"+str(afterPullFliesCount))
-	if GLOBAL_BEFORE_PULL_FILE_COUNT == afterPullFliesCount:
+	afterPullFliesList = module_files_list()
+	if GLOBAL_BEFORE_PULL_FILE_LIST == afterPullFliesList:
 		print("无文件变更,不需要执行pod install")
 		return
 		
@@ -780,7 +779,7 @@ def podfile_path():
 					return root
 	return None
 		
-def files_count_with_path(path):
+def files_list_with_path(path):
 	#忽略统计的文件夹
 	igonreDir1 = "/Pods"
 	igonreDir2 = "/.git"
@@ -789,7 +788,7 @@ def files_count_with_path(path):
 	igonreDir5 = ".xcodeproj"
 	igonreDir6 = ".idea"
 	
-	count = 0
+	filtList = []
 	
 	for root,dirs,files in os.walk(path): 
 		#忽略Pods文件夹
@@ -808,8 +807,8 @@ def files_count_with_path(path):
 			endPlist = eachFile.endswith(".plist")
 			endDB = eachFile.endswith(".db")
 			if endH or endM or endMM or endPlist or endDB:
-			 	count += 1
-	return count
+			 	filtList.append(eachFile)
+	return filtList
 
 def project_ID():
 	projectID = read_project_ID()
