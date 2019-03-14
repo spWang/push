@@ -772,7 +772,8 @@ def pod_install_if_need():
 		
 	os.chdir(podfilePath)
 	print("需要重新部署文件,正在执行:"+CAMMAND_POD_INSTALL)
-	cammand_out_put(CAMMAND_POD_INSTALL, True, None)
+	print("请稍后...")
+	os.system(CAMMAND_POD_INSTALL)
 	os.chdir(current_path())
 	
 def podfile_path():
