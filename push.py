@@ -73,6 +73,15 @@ MSG_NEEDPUSH2 = "have diverged," #有待push,第二种情况
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
+def test():
+	print "\ntest打印-------------"
+	print current_path()
+#	mark_count_of_files()
+#	pod_install_if_need()
+#	dateTime = datetime.datetime.now().strftime('%m-%d_%H:%M:%S')
+#	print "源分支是:"+source_branch()
+#	print "目标分支是:"+target_branch()
+	print "test打印完毕-------------\n"
 
 def main():
 
@@ -150,19 +159,6 @@ def setup():
 	global project
 	project = gl.projects.get(projectID)	
 	print "初始化完毕"
-
-def test():
-	print "\ntest打印-------------"
-	
-	pjconfig.setup_class_prefix_if_need()
-	
-	print current_path()
-#	mark_count_of_files()
-#	pod_install_if_need()
-#	dateTime = datetime.datetime.now().strftime('%m-%d_%H:%M:%S')
-#	print "源分支是:"+source_branch()
-#	print "目标分支是:"+target_branch()
-	print "test打印完毕-------------\n"
 
 def case_normal_merge_push():
 	
