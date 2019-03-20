@@ -182,7 +182,7 @@ def case_normal_merge_push():
 	pass
 
 def case_conflict():
-	print "代码有冲突"
+	print "代码有冲突,走冲突流程"
 	#放弃变基
 	give_up_rebase()
 	
@@ -205,6 +205,7 @@ def case_conflict():
 	print "⚠️ ⚠️ ⚠️ 请手动解决冲突后,再提交代码"
 
 def case_no_conflict():
+	print "走没有冲突流程"
 	#当前分支直接push 或者走merge流程
 	pushImmediacy = can_push_branch_target()
 	if pushImmediacy:
@@ -490,15 +491,20 @@ def ahead_target_branch_commit():
 	
 	if needPull and noChange and needPush:
 		print("正在解析本地已经提交的个数...")
-		matcher = "and have \S and \S different commits each, respectively."
+		matcher = ".*and have [0-9].*"
 		pattern1 = re.compile(matcher)
 		resultList = pattern1.findall(status)
+		print resultList
+		print status
 		if len(resultList):
 			#从matcher里分割出来字符串数组
 			matcherStr = resultList[0]
 			countStr = matcherStr.split(" ")[2]
 			print "本地提交的个数是"+countStr
 			return int(countStr)
+		else:
+			print "解析失败"
+			exit(0)
 	return 0
 
 def target_branch_commit():
