@@ -259,7 +259,7 @@ def merge_branch_target():
 	git_fetch()
 
 	#打开网页
-	#open_web_merge_request(mr)
+	open_web_merge_request(mr)
 			
 	pass
 	
@@ -509,7 +509,7 @@ def ahead_target_branch_commit():
 
 def target_branch_commit():
 	cammand = CAMMAND_GIT_LOG+" {branch} --oneline".format(branch=target_branch())
-	print("获取target分支的git log"+cammand)
+	print("获取target分支的提交记录"+cammand)
 	logs = cammand_out_put(cammand, True, None)
 	return logs.split("\n")
 			
@@ -530,7 +530,7 @@ def reset_and_stash(commitCount,commitLogs):
 		git_reset_with_commitID(commitID)
 		
 		#暂存代码
-		title = commitMsg+"_"+str(commitCount-index)
+		title = str(commitCount-index)+"_"+commitMsg
 		git_stash_with_title(title)
 		stashTitleList.append(title)
 		index+=1
@@ -621,6 +621,10 @@ def push_branch_source():
 	cammand_out_put(cammand, True, None)
 
 def can_push_branch_target():
+	#外部指定了reviewer的人,则强制走review流程
+	if inputAssiness!=None:
+		return False
+		
 	targetBranch = project.branches.get(target_branch())
 	return targetBranch.can_push
 
@@ -751,8 +755,11 @@ def git_fetch():
 	cammand_out_put(CAMMAND_GIT_FETCH, True, None)
 
 def open_web_merge_request(mr):
-	print("打开浏览器:"+mr.web_url)
-	webbrowser.open(mr.web_url)
+	if auto_merge():
+		print "mr的URL是:"+mr.web_url
+	else:
+		print("打开浏览器:"+mr.web_url)
+		webbrowser.open(mr.web_url)
 
 def module_files_list():	
 	return files_list_with_path(current_path())
