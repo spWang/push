@@ -20,6 +20,7 @@ from xpinyin import Pinyin
 
 #脚本输入参数(全局变量)
 inputAssiness = None #外部输入指定的review的人
+inputSourceBranch = None #外部输入指定的源分支
 inputTargetBranch = None #外部输入指定的目标分支
 
 VERSION = " 1.0.0"
@@ -877,6 +878,12 @@ def source_branch():
 	if GLOBAL_BRANCH_SOURCE:
 		return GLOBAL_BRANCH_SOURCE
 	
+	#外部指定了,就用外部指定的
+	if inputSourceBranch:
+		GLOBAL_BRANCH_SOURCE = inputSourceBranch+"_"+last_my_short_commitID()
+		return GLOBAL_BRANCH_SOURCE
+		
+	#使用代码生成的
 	cammand = "git config --global user.name"
 	name = cammand_out_put(cammand, False, None)
 	if not name:
@@ -1028,6 +1035,7 @@ def deal_argv(arguments):
 			print VERSION
 			exit(0)	
 	global inputAssiness
+	global inputSourceBranch
 	global inputTargetBranch
 
 	for idx, argu in enumerate(arguments):			
@@ -1039,6 +1047,14 @@ def deal_argv(arguments):
 			print "用户指定的review人是:"+inputAssiness
 			tempList.remove(argu)
 			
+		#指定源分支
+		elif argu.startswith("-s=") or argu.startswith("--source="):
+			tempArgu = argu.replace("--source", "")
+			tempArgu = tempArgu.replace("-s=", "")
+			inputSourceBranch = tempArgu.replace("\"", "")
+			print "用户指定的源分支是:"+inputSourceBranch
+			tempList.remove(argu)
+		
 		#指定目标分支
 		elif argu.startswith("-t=") or argu.startswith("--target="):
 			tempArgu = argu.replace("--target", "")
@@ -1062,6 +1078,7 @@ def log_help():
 	print "帮助:(命令为push)"
 	print "*  push后加参数-h 或者--help 输出帮助"
 	print "*  push后加参数-r=xxx 或者--review=xxx 指定review的人"
+	print "*  push后加参数-s=xxx 或者--source=xxx 指定source分支"
 	print "*  push后加参数-t=xxx 或者--target=xxx 指定target分支"
 	print "*  其他命令:新增/修改默认目标分支请执行:"+CAMMAND_GIT_CONFIG_TARGET_BRANCH+" xxx"
 	print "*  其他命令:查看默认目标分支请执行:"+CAMMAND_GIT_CONFIG_TARGET_BRANCH
