@@ -678,13 +678,17 @@ def delete_source_branch_when_merged():
 		
 		sourceBranch = mr.source_branch
 		if not sourceBranch:
-			print ("source branch不存在,不删除对应分支,对应ID:"+mrID)
+			print ("source branch不存在,不删除对应分支,,删除本地的此ID,对应ID:"+mrID)
+			#删除本地存储ID
+			delete_merge_request_ID(str(mr.iid))
 			continue
 		if mr.state == "open":
 			print ("分支:{branch} ID:{mrIID} 的merge request未被合并,不删除对应分支".format(branch=sourceBranch,mrIID=mrID))
 			continue
 		if mr.state == "closed":
-			print ("分支:{branch} ID:{mrIID} 的merge request已被关闭,不删除对应分支".format(branch=sourceBranch,mrIID=mrID))
+			print ("分支:{branch} ID:{mrIID} 的merge request已被关闭,不删除对应分支,删除本地的此ID".format(branch=sourceBranch,mrIID=mrID))
+			#删除本地存储ID
+			delete_merge_request_ID(str(mr.iid))
 			continue
 		if mr.state == "merged":
 			print ("分支:{branch} ID:{mrIID} 的merge request已被合并,需删除对应分支".format(branch=sourceBranch,mrIID=mrID))
