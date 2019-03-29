@@ -15,6 +15,7 @@ import webbrowser
 import gitlab
 import datetime
 import pjconfig
+import update
 from xpinyin import Pinyin
 
 
@@ -1036,8 +1037,14 @@ def deal_argv(arguments):
 		
 	#输出版本
 	if "-v" in arguments or "--version" in arguments:
-			print VERSION
-			exit(0)	
+		print VERSION
+		exit(0)	
+			
+	#输出版本
+	if "update" in arguments:
+		update.updatejob()
+		exit(0)
+			
 	global inputAssiness
 	global inputSourceBranch
 	global inputTargetBranch
@@ -1080,6 +1087,7 @@ def deal_argv(arguments):
 	
 def log_help():
 	print "帮助:(命令为push)"
+	print "*  push后加参数update 更新升级"
 	print "*  push后加参数-h 或者--help 输出帮助"
 	print "*  push后加参数-r=xxx 或者--review=xxx 指定review的人"
 	print "*  push后加参数-s=xxx 或者--source=xxx 指定source分支"
