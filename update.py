@@ -26,6 +26,8 @@ def updatejob():
 	jobRepoPath = jobPath.replace(fileName, '')
 	os.chdir(jobRepoPath)
 	
+	#....
+	
 	#执行拉代码的操作
 	print ("更新脚本:"+CAMMAND_PULL_TARGET_BRANCE)
 	cammand_out_put(CAMMAND_PULL_TARGET_BRANCE, True, None)
