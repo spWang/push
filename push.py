@@ -1086,7 +1086,7 @@ def deal_argv(arguments):
 	pass
 	
 def log_help():
-	print "帮助:(命令为push)"
+	print "帮助:(命令为push后加参数)"
 	print "*  push后加参数update 更新升级"
 	print "*  push后加参数-h 或者--help 输出帮助"
 	print "*  push后加参数-r=xxx 或者--review=xxx 指定review的人"
