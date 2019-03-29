@@ -10,6 +10,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 CAMMAND_PULL_TARGET_BRANCE = "git pull" #rebase拉代码
+CAMMAND_CHECKOUT_DOT = "git checkout ." #丢弃所有修改
 
 
 def main():
@@ -26,7 +27,9 @@ def updatejob():
 	jobRepoPath = jobPath.replace(fileName, '')
 	os.chdir(jobRepoPath)
 	
-	#....
+	#丢弃所有修改
+	print ("丢弃对脚本的所有修改:"+CAMMAND_CHECKOUT_DOT)
+	cammand_out_put(CAMMAND_CHECKOUT_DOT, True, None)
 	
 	#执行拉代码的操作
 	print ("更新脚本:"+CAMMAND_PULL_TARGET_BRANCE)
