@@ -56,7 +56,7 @@ CAMMAND_GIT_STASH = "git stash save" #暂存代码
 CAMMAND_GIT_STASH_LIST = "git stash list" #拉取所有暂存代码列表
 CAMMAND_GIT_STASH_POP = "git stash pop" #恢复暂存代码
 CAMMAND_GIT_STASH_DROP = "git stash drop" #删除暂存代码
-CAMMAND_POD_INSTALL = "pod install" #pod install
+CAMMAND_POD_INSTALL = "is_frameworks=1 pod install" #pod install
 CAMMAND_GIT_CONFIG_DELETE_TARGET_BRANCH = "git config --unset pushconfig.targetbranch"#删除本地配置的默认目标分支
 CAMMAND_GIT_CONFIG_TARGET_BRANCH = "git config pushconfig.targetbranch" #本地配置默认目标分支
 CAMMAND_GIT_CONFIG_MERGEREQUEST_IDS = "git config pushconfig.mrids" #记录mr的ID
