@@ -35,7 +35,6 @@ GLOBAL_BRANCH_SOURCE = None
 DEFAULT_BRANCH_TARGET = "dev" #默认的目标分支
 ASSINESS = "" #代码写死review的人 优先级: 外部输入 > 代码写死 > 获取git配置的提交者
 
-CAMMAND_GIT_USER_NAME = "git config --global user.name" #提交的用户名,用来校验是否和gitlab登录用户是一个人
 CAMMAND_GIT_REMOTE_URL = "git config remote.origin.url" #获取当前仓库的SSH 或者HTTP URL
 CAMMAND_GIT_ADD_ALL  = "git add ." #暂存
 CAMMAND_GIT_COMMIT_MSG  = "git commit -m" #提交代码
@@ -77,7 +76,8 @@ sys.setdefaultencoding('utf8')
 
 def test():
 	print "\ntest打印-------------"
-	print current_path()
+#	print current_login_user_name()
+#	print current_path()
 #	mark_count_of_files()
 #	pod_install_if_need()
 #	dateTime = datetime.datetime.now().strftime('%m-%d_%H:%M:%S')
@@ -160,6 +160,10 @@ def setup():
 	print "获取项目"
 	global project
 	project = gl.projects.get(projectID)	
+	
+	#认证当前用户
+#	gl.auth()
+	
 	print "初始化完毕"
 
 def case_normal_merge_push():
@@ -244,6 +248,9 @@ def merge_branch_target():
 
 	#创建合并请求
 	mr =  create_merge_request()
+
+	#发送钉钉消息提醒TA
+	send_dingding(mr)
 
 	#处理合并请求
 	deal_merge_request(mr)
@@ -655,6 +662,13 @@ def create_merge_request():
 	print "创建merge request,其ID是:"+str(mr.iid)
 	return mr
 	
+def send_dingding(mr):
+	link = mr.web_url
+	sender = ""
+	reviewer = ""
+	icon = ""
+	print ""
+	
 def deal_merge_request(mr):
 	mrID = str(mr.iid)
 	if auto_merge():
@@ -943,7 +957,7 @@ def git_config_remote_url(url = None):
 	
 
 def auto_merge():
-	return git_user_name() == get_assiness()
+	return current_login_user_name() == get_assiness()
 
 def get_assiness():
 	if inputAssiness:
@@ -952,7 +966,7 @@ def get_assiness():
 	if ASSINESS:
 		return ASSINESS
 		
-	return git_user_name()
+	return current_login_user_name()
 
 def local_branchs():
 	result = cammand_out_put(CAMMAND_CURRENT_LOCAL_BRANCHS, True, None)
@@ -978,8 +992,11 @@ def check_assignee_id():
 	print ("❌❌❌ 未找到review者的名字是{name},请检查".format(name=assignessName))
 	exit(0)
 		
-def git_user_name():
-	return cammand_out_put(CAMMAND_GIT_USER_NAME, True, "没有获取到用户名")
+def current_login_user_name():
+	try:
+		return gl.user.name
+	except Exception as e:
+		return "未获取到用户名"		
 	
 # 基础方法
 def current_time():
