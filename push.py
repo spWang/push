@@ -16,6 +16,7 @@ import gitlab
 import datetime
 import pjconfig
 import update
+import send
 from xpinyin import Pinyin
 
 
@@ -162,7 +163,7 @@ def setup():
 	project = gl.projects.get(projectID)	
 	
 	#认证当前用户
-#	gl.auth()
+	gl.auth()
 	
 	print "初始化完毕"
 
@@ -663,11 +664,12 @@ def create_merge_request():
 	return mr
 	
 def send_dingding(mr):
-	link = mr.web_url
-	sender = ""
-	reviewer = ""
-	icon = ""
-	print ""
+	url = mr.web_url
+	sender = mr.author["name"]
+	reviewer = mr.assignee["name"]
+	avatar = mr.author["avatar_url"]
+	message = mr.title
+	send.sendToDingDing(reviewer, url, msg=message, sender=sender,icon=avatar)
 	
 def deal_merge_request(mr):
 	mrID = str(mr.iid)
@@ -996,7 +998,7 @@ def current_login_user_name():
 	try:
 		return gl.user.name
 	except Exception as e:
-		return "未获取到用户名"		
+		return "未获取到用户名"	
 	
 # 基础方法
 def current_time():
