@@ -269,7 +269,7 @@ def merge_branch_target():
 	git_fetch()
 
 	#打开网页
-	open_web_merge_request(mr)
+	#open_web_merge_request(mr)
 			
 	pass
 	

@@ -54,7 +54,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 
 	result1 = ding.send_link(title, text, message_url, pic_url)
 	print result1
-	textStr = ="点击上边的链接查看@"+reviewer
+	textStr ="点击上边的链接查看@"+reviewer
 	result2 = ding.send_text(text=textStr,at_mobiles=phone)
 	print result2
 
