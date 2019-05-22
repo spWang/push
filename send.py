@@ -15,7 +15,7 @@ ding = None
 
 def main():
 	print "main"
-	setup()
+	
 	
 def setup():
 	global ding
@@ -46,7 +46,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 		return
 	
 	print "发送消息给钉钉好友"
-	mobile = phone.phone_with_name(name)
+	mobile = phone.phone_with_name(reviewer)
 	
 	title = sender+"向"+reviewer+"发了一个merge request请求"
 	text = msg
@@ -55,7 +55,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 
 	result1 = ding.send_link(title, text, message_url, pic_url)
 	print result1
-	result2 = ding.send_text(text="点击上边的链接查看",at_mobiles=mobile)
+	result2 = ding.send_text(text="点击上边的链接查看",at_mobiles=[mobile])
 	print result2
 
 def get_access_token():
