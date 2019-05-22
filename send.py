@@ -4,6 +4,7 @@
 import os
 import re
 import sys
+import time
 import subprocess
 import phone
 from dingding import DingDing
@@ -52,6 +53,9 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 	text = msg
 	message_url = mrUrl;
 	pic_url = icon
+
+	#延时下 把消息置顶
+	time.sleep(1)
 
 	result1 = ding.send_link(title, text, message_url, pic_url)
 	print result1

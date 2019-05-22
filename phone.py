@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import subprocess
+import time
 from biplist import *
 
 PHONE_FILE = "phone.plist"
@@ -12,6 +13,7 @@ PHONE_FILE = "phone.plist"
 def main():
 	print "main"
 	print phone_with_name("xxx")
+	print "结束"
 
 	
 def phone_with_name(name):
