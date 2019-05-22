@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import subprocess
+import phone
 from dingding import DingDing
 	
 	
@@ -45,7 +46,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 		return
 	
 	print "发送消息给钉钉好友"
-	phone = toMobileWithName(sender)
+	mobile = phone.phone_with_name(name)
 	
 	title = sender+"向"+reviewer+"发了一个merge request请求"
 	text = msg
@@ -54,15 +55,12 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 
 	result1 = ding.send_link(title, text, message_url, pic_url)
 	print result1
-	textStr ="点击上边的链接查看@"+reviewer
-	result2 = ding.send_text(text=textStr,at_mobiles=phone)
+	result2 = ding.send_text(text="点击上边的链接查看",at_mobiles=mobile)
 	print result2
 
 def get_access_token():
 	return cammand_out_put(CAMMAND_GIT_CONFIG_ACCESS_TOKEN,False,"")
 
-def toMobileWithName(name):
-	return [""]
 
 def cammand_out_put(cammand, can_raise, raise_return_value):
 	try:
