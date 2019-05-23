@@ -12,7 +12,7 @@ PHONE_FILE = "phone.plist"
 
 def main():
 	print "main"
-	print phone_with_name("xxx")
+	print phone_with_name(unicode("xxx","utf-8"))
 	print "结束"
 
 	
@@ -35,18 +35,12 @@ def phone_plist():
 		print "phone.plist不存在"
 		return None
 
-	if not check_file_is_plsit(phone_path):
-		print phone_path+"不是plist文件,无法读取"
-		return None
-		
-	return readPlist(phone_path)
-	
-def check_file_is_plsit(plist_path):
 	try:
-		plist = readPlist(plist_path)
-		return True
+		return readPlist(phone_path)
 	except (InvalidPlistException, NotBinaryPlistException), e:
-		return False
+		print phone_path+"不是plist文件,无法读取"
+		print e
+		return None
 		
 def current_path():
 	currentPath = os.path.realpath(__file__);

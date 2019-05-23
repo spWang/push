@@ -52,6 +52,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 	print "发送消息给钉钉好友"
 	mobile = phone.phone_with_name(reviewer)
 	
+	print reviewer+"的手机号是:"+mobile
 	title = sender+"向"+reviewer+"发了一个merge request请求"
 	text = msg
 	message_url = mrUrl;
