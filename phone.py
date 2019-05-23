@@ -17,13 +17,15 @@ def main():
 
 	
 def phone_with_name(name):
-	if not name or type(name)!=str:
+	
+	if not name:
+		print "名字不存在"
 		return ""
-	name = unicode(name, "utf-8")
 	plist = phone_plist()
 	try:
 		return plist[name]
 	except(KeyError, Exception),e:
+		print e
 		return ""
 
 def phone_plist():
