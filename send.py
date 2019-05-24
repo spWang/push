@@ -32,7 +32,7 @@ def setup():
 
 def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 	#延时下 把消息置顶
-	time.sleep(1)
+	time.sleep(0.5)
 	
 	setup()
 	
@@ -53,7 +53,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 	mobile = phone.phone_with_name(reviewer)
 	
 	print reviewer+"的手机号是:"+mobile
-	title = sender+"向"+reviewer+"发了一个merge request请求"
+	title = reviewer+":"+sender+"向你发了一个merge request"
 	text = msg
 	message_url = mrUrl;
 	pic_url = icon
