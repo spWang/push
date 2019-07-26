@@ -99,6 +99,8 @@ def pods_dir_exists():
     
 def dealStrIfHaveChinese(prefix):
     regex = re.compile(r"^[a-zA-Z0-9]*$", re.S)
+    if not prefix:
+        return ""
     result = regex.match(prefix)
     if result:
         return prefix
