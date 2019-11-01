@@ -679,7 +679,9 @@ def deal_merge_request(mr):
 		print "merge完毕"
 	else:
 		print "需要他人merge,存储本次的merge request ID,ID是:"+mrID
-		save_merge_request_ID(mrID)
+
+	#自动合并也许保存ID，后边删除远程分支使用
+	save_merge_request_ID(mrID)
 		
 def delete_source_branch_when_merged():
 	mrIDList = read_merge_request_IDs()
