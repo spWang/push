@@ -19,8 +19,8 @@ def main():
     
     
 def setup_class_prefix_if_need():
-#    print "前缀还有问题,先不开启此功能"
-#    return
+    print "前缀还有问题,先不开启此功能"
+    return
     
     print "检查是否需要配置工程"
     pods_dir_exists()
