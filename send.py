@@ -60,7 +60,7 @@ def sendToDingDing(reviewer, mrUrl, msg="", sender="",icon=""):
 
 	result1 = ding.send_link(title, text, message_url, pic_url)
 	print result1
-	result2 = ding.send_text(text="点击上边的链接查看",at_mobiles=[mobile])
+	result2 = ding.send_text(text="点击链接查看",at_mobiles=[mobile])
 	print result2
 
 def get_access_token():
