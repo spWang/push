@@ -269,7 +269,7 @@ def merge_branch_target():
 	git_fetch()
 
 	#打开网页
-	#open_web_merge_request(mr)
+	open_web_merge_request(mr)
 			
 	pass
 	
@@ -664,9 +664,13 @@ def create_merge_request():
 	return mr
 	
 def send_dingding(mr):
+	try:
+		reviewer = mr.assignee["name"]
+	except Exception as e:
+		print "❌❌❌获取review名字失败,不发送钉钉"
+		return
 	url = mr.web_url
 	sender = mr.author["name"]
-	reviewer = mr.assignee["name"]
 	avatar = mr.author["avatar_url"]
 	message = mr.title
 	send.sendToDingDing(reviewer, url, msg=message, sender=sender,icon=avatar)
@@ -997,9 +1001,9 @@ def check_assignee_id():
 	if assignee_id:
 		print ("review的人名字是{name} ID是{id}".format(name=get_assiness(),id=assignee_id))
 		return assignee_id
-
-	print ("❌❌❌ 未找到review者的名字是{name},请检查".format(name=assignessName))
-	exit(0)
+	else:
+		print ("❌❌❌ 未找到review者的名字是{name},已创建无review名字的MR".format(name=assignessName))
+		return assignee_id
 		
 def current_login_user_name():
 	try:
