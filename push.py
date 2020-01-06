@@ -675,8 +675,13 @@ def deal_merge_request(mr):
 	mrID = str(mr.iid)
 	if auto_merge():
 		print "review人是自己,需要自动merge,merge request ID是:"+mrID
-		mr.merge()
-		print "merge完毕"
+		try:
+			mr.merge()
+			print "merge完毕"
+		except Exception as e:
+			webbrowser.open(mr.web_url)
+			print e
+			print "❌❌❌merge失败,请手动处理"
 	else:
 		print "需要他人merge,存储本次的merge request ID,ID是:"+mrID
 
