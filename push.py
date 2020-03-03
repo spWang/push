@@ -41,7 +41,7 @@ CAMMAND_GIT_ADD_ALL  = "git add ." #暂存
 CAMMAND_GIT_COMMIT_MSG  = "git commit -m" #提交代码
 CAMMAND_CURRENT_LOCAL_BRANCHS  = "git branch -l" #查看本地分支
 CAMMAND_REMOTE_BRANCHS  = "git branch -r" #查看远程分支
-CAMMAND_PULL_TARGET_BRANCE = "git pull --rebase" #rebase拉代码
+CAMMAND_PULL_TARGET_BRANCE = "git pull" #rebase拉代码
 CAMMAND_FORCE_DELETE_LOCAL_BRANCH = "git branch -D" #强制删除本地分支
 CAMMAND_DELETE_BRANCH_ORIGIN = "git push origin -d" #删除远程分支
 CAMMAND_CHECKOUT_BRANCH = "git checkout -b" #创建并切换到某分支
@@ -881,7 +881,8 @@ def project_ID():
 		if projectID>0:
 			save_project_ID(projectID)
 		else:
-			print("projectID={pID} projectID不存在,请联系开发者".format(pID=projectID))
+			print("projectID={pID} projectID不存在".format(pID=projectID))
+			print("可手动配置，执行命令：{cmd} 项目ID".format(cmd=CAMMAND_GIT_CONFIG_PROJECT_ID))
 			exit(0)
 	except Exception,e:
 		print e
