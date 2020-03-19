@@ -17,6 +17,7 @@ import datetime
 import pjconfig
 import update
 import send
+import reviewer
 from xpinyin import Pinyin
 
 
@@ -1085,8 +1086,9 @@ def deal_argv(arguments):
 		if argu.startswith("-r=") or argu.startswith("--review="):
 			tempArgu = argu.replace("--review=", "")
 			tempArgu = tempArgu.replace("-r=", "")
-			inputAssiness = tempArgu.replace("\"", "")
-			print "用户指定的review人是:"+inputAssiness
+			name = tempArgu.replace("\"", "")
+			print "指定的review人是:"+name
+			inputAssiness = reviewer.reviewer_with_name(unicode(name,"utf-8"))
 			tempList.remove(argu)
 			
 		#指定源分支
